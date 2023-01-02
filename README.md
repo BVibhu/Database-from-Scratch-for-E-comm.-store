@@ -1,6 +1,6 @@
 **Project Scope:**
 
-This project was created to come to test our Database management system skills at Maters of Management Analytics at McGill University. The programming language used was SQL (Python was also used to extract the data from CSV files and create INSERT INTO commands for different tables but was out of scope for this project so has been removed). 
+This project was created to test our Database management system skills at Maters of Management Analytics at McGill University. The programming language used was SQL (Python was also used to extract the data from CSV files and create INSERT INTO commands for different tables but was out of scope for this project so has been removed). 
 
 Our goal was to consider a use case and implement the techniques learned in DBMS to create an optimal dataset and then write queries that can be used to resolve issues that could be of immense value to the business. 
 
@@ -119,6 +119,8 @@ To report on User sales 
 
 
 **ERD**:
+
+![image](https://github.com/BVibhu/Database-from-Scratch-for-E-comm.-store/blob/main/ERD%20Diagram.png) 
 
 **Description of Entities**
 
