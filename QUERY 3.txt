@@ -1,0 +1,6 @@
+SELECT W.S_CODE, P.Product_Name, Grape_Var
+FROM Product P, WINE W
+WHERE W.S_CODE = P.S_CODE
+AND Grape_Var LIKE "%Syrah%"
+;
+

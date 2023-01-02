@@ -1,0 +1,6 @@
+SELECT S.Store_ID, P.S_CODE, P.UPC_Code, P.Product_Name, I.Quantity
+FROM store S
+JOIN inventory I ON I.Store_ID = S.Store_ID
+JOIN product P ON P.S_CODE = I.S_CODE
+WHERE I.Quantity < 10 AND S.Store_ID = 5000
+ORDER BY S.Store_ID, I.Quantity;

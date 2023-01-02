@@ -1,0 +1,5 @@
+SELECT User_ID, COUNT(Bookmark_ID) AS num_bookmark,Count(Bookmark_ID)/Count(transaction_ID) AS conv_rate, BOOKMARK.S_CODE,transaction_product.S_CODE 
+FROM BOOKMARK,transaction_product
+GROUP BY User_ID,BOOKMARK.S_CODE,transaction_product.S_CODE
+HAVING BOOKMARK.S_CODE = transaction_product.S_CODE
+ORDER BY num_bookmark DESC;

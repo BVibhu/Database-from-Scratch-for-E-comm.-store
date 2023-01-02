@@ -1,0 +1,6 @@
+SELECT r.Food_ID ,r.Food_Name, COUNT(rp.S_CODE) AS recommendations 
+FROM Recipes r
+INNER JOIN Recipes_Product rp ON 
+r.FOOD_ID = rp.Food_ID
+GROUP BY Food_ID,Food_Name
+ORDER BY COUNT(S_CODE) DESC;

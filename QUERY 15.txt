@@ -1,0 +1,28 @@
+CREATE TABLE User_Consumption as
+SELECT
+PRODUCT.S_CODE,PRODUCT.Category,PRODUCT.Alcohol_percent,TRANSACTION_PRODUCT.Quantity,USER.User_ID,USER.Username,SPIRIT.Type
+FROM PRODUCT
+JOIN TRANSACTION_PRODUCT
+  ON TRANSACTION_PRODUCT.S_CODE = PRODUCT.S_CODE
+JOIN TRANSACTION
+  ON TRANSACTION.Transaction_ID = TRANSACTION_PRODUCT.Transaction_ID
+JOIN USER
+  ON TRANSACTION.User_ID = USER.User_ID
+LEFT JOIN SPIRIT
+  ON PRODUCT.S_CODE = SPIRIT.S_CODE;
+UPDATE User_Consumption SET Type=Category where Type is null ;
+
+SELECT Username,SUM(Quantity) as DRY_GIN_SOLD from User_Consumption where Type="Dry Gin" GROUP BY Username ORDER BY SUM(Quantity) DESC;
+SELECT Username,SUM(Quantity) from User_Consumption where Type="Tequila" GROUP BY Username ORDER BY SUM(Quantity) DESC;  
+SELECT Username,SUM(Quantity) from User_Consumption where Type="Cognac" GROUP BY Username ORDER BY SUM(Quantity) DESC;  
+SELECT Username,SUM(Quantity) from User_Consumption where Type="Genever" GROUP BY Username ORDER BY SUM(Quantity) DESC;  
+SELECT Username,SUM(Quantity) from User_Consumption where Type="Absinth" GROUP BY Username ORDER BY SUM(Quantity) DESC; 
+SELECT Username,SUM(Quantity) from User_Consumption where Type="Whisky" GROUP BY Username ORDER BY SUM(Quantity) DESC;  
+SELECT Username,SUM(Quantity) from User_Consumption where Type="Vodka" GROUP BY Username ORDER BY SUM(Quantity) DESC; 
+SELECT Username,SUM(Quantity) from User_Consumption where Type="Tequila" GROUP BY Username ORDER BY SUM(Quantity) DESC; 
+SELECT Username,SUM(Quantity) from User_Consumption where Type="Rum" GROUP BY Username ORDER BY SUM(Quantity) DESC;  
+SELECT Username,SUM(Quantity) from User_Consumption where Type="Wine" GROUP BY Username ORDER BY SUM(Quantity) DESC;  
+SELECT Username,SUM(Quantity) from User_Consumption where Type="Beer" GROUP BY Username ORDER BY SUM(Quantity) DESC;  
+
+
+

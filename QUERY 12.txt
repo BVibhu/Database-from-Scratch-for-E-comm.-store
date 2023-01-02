@@ -1,0 +1,5 @@
+SELECT
+Product_name,count(Product_name),avg(rating)
+FROM PRODUCT, BOOKMARK ,review
+  where BOOKMARK.S_CODE = PRODUCT.S_CODE and review.S_CODE = PRODUCT.S_CODE
+  group by Product_Name order by count(Product_name) DESC

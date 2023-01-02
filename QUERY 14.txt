@@ -1,0 +1,10 @@
+SELECT
+distinct Postal_code,sum(Quantity)*sum(sizeInInt) as AlcoholSold
+FROM PRODUCT
+JOIN TRANSACTION_PRODUCT
+  ON TRANSACTION_PRODUCT.S_CODE = PRODUCT.S_CODE
+JOIN TRANSACTION
+  ON TRANSACTION.Transaction_ID = TRANSACTION_PRODUCT.Transaction_ID
+JOIN USER
+  ON TRANSACTION.User_ID = USER.User_ID
+  GROUP BY Postal_Code order by AlcoholSold DESC

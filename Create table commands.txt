@@ -1,0 +1,167 @@
+CREATE TABLE COMMANDS:
+CREATE TABLE `PRODUCT` (
+  `S_CODE` varchar(150) NOT NULL,
+  `UPC_Code` varchar(150) NOT NULL,
+  `Product_Name` varchar(150) NOT NULL,
+  `Category` varchar(150) ,
+  `Color` varchar(150) ,
+  `Country` varchar(150) ,
+  `Producer` varchar(150) ,
+  `Alcohol_Percent` int ,
+  `Size` varchar(150) ,
+  `Price` float ,
+  `Discount` int ,
+  PRIMARY KEY (`S_CODE`)
+);
+
+CREATE TABLE `WINE` (
+  `S_CODE` varchar(150) NOT NULL,
+  `Grape_Var` varchar(150) ,
+  `Aromas` varchar(150) ,
+  `Serving_Temp` varchar(150) ,
+  `Acidity` varchar(150) ,
+  `Sweetness` varchar(150) ,
+  `Body` varchar(150) ,
+  `Mouthfeel` varchar(150) ,
+  `Wood` varchar(150) ,
+   PRIMARY KEY (`S_CODE`),
+   FOREIGN KEY (`S_CODE`) REFERENCES `PRODUCT` (`S_CODE`)
+);
+
+CREATE TABLE `SPIRIT` (
+  `S_CODE` varchar(150) NOT NULL,
+  `Type` varchar(150),
+   PRIMARY KEY (`S_CODE`),
+   FOREIGN KEY (`S_CODE`) REFERENCES `PRODUCT` (`S_CODE`)
+);
+
+CREATE TABLE `COCKTAIL` (
+  `Cocktail_ID` varchar(150) NOT NULL,
+  `Cocktail_Name` varchar(150) NOT NULL,
+  `Main_Ingredient` varchar(150) NOT NULL,
+  `Type` varchar(150) NOT NULL,
+  `Difficulty_Level` varchar(150),
+  `Strength` int ,
+  `Occasion` varchar(150) ,
+  `Glass` varchar(150) ,
+  `Utensils` varchar(150) ,
+  `Ingredients` varchar(250) ,
+  `Preparations` varchar(1000) ,
+  PRIMARY KEY (`Cocktail_ID`)
+);
+
+
+CREATE TABLE `COCKTAIL_PRODUCT` (
+  `Cocktail_ID` varchar(150) NOT NULL,
+  `S_CODE` varchar(150) NOT NULL,
+   PRIMARY KEY (`Cocktail_ID`, `S_CODE`),
+   FOREIGN KEY (`Cocktail_ID`) REFERENCES `COCKTAIL` (`Cocktail_ID`),
+   FOREIGN KEY (`S_CODE`) REFERENCES `PRODUCT` (`S_CODE`)
+);
+
+CREATE TABLE `RECIPES` (
+  `Food_ID` varchar(150) NOT NULL,
+  `Food_Name` varchar(150) NOT NULL,
+  `Category` varchar(150) NOT NULL,
+  `Preparation_Time` varchar(150),
+  `Cooking_Time` varchar(150) ,
+  `Ingredients` varchar(300) ,
+  `Preparation` varchar(1000) ,
+  `Tips` varchar(150) ,
+  PRIMARY KEY (`Food_ID`)
+);
+
+
+CREATE TABLE `RECIPES_PRODUCT` (
+  `Food_ID` varchar(150) NOT NULL,
+  `S_CODE` varchar(150) NOT NULL,
+   PRIMARY KEY (`Food_ID`, `S_CODE`),
+   FOREIGN KEY (`Food_ID`) REFERENCES `RECIPES` (`Food_ID`),
+   FOREIGN KEY (`S_CODE`) REFERENCES `PRODUCT` (`S_CODE`)
+);
+
+
+CREATE TABLE `STORE` (
+  `Store_ID` varchar(150) NOT NULL,
+  `Street_No` varchar(150) NOT NULL,
+  `Street` varchar(150) NOT NULL,
+  `City` varchar(150) NOT NULL,
+  `Postal_Code` varchar(150) NOT NULL,
+  `Type` varchar(150) NOT NULL,
+  PRIMARY KEY (`Store_ID`)
+);
+
+CREATE TABLE `INVENTORY` (
+  `Inventory_Code` int(4) NOT NULL,
+  `Quantity` int NOT NULL,
+  `Date_updated` date NOT NULL,
+  `Store_ID` varchar(150) NOT NULL,
+  `S_CODE` varchar(150) NOT NULL,
+  PRIMARY KEY (`Inventory_Code`),
+  FOREIGN KEY (`Store_ID`) REFERENCES `STORE` (`Store_ID`),
+  FOREIGN KEY (`S_CODE`) REFERENCES `PRODUCT` (`S_CODE`)
+);
+
+CREATE TABLE `USER` (
+  `User_ID` varchar(150) NOT NULL,
+  `Username` varchar(150) NOT NULL,
+  `Password` varchar(150) NOT NULL,
+  `First_Name` varchar(150) NOT NULL,
+  `Last_Name` varchar(150) NOT NULL,
+  `Store_ID` varchar(150) NOT NULL,
+  `Street_No` varchar(150) ,
+  `Street` varchar(150) ,
+  `City` varchar(150) ,
+  `Postal_Code` varchar(150) ,
+  `LOYALTY` int DEFAULT NULL,
+   PRIMARY KEY (`User_ID`),
+   FOREIGN KEY (`Store_ID`) REFERENCES `STORE` (`Store_ID`)
+);
+
+CREATE TABLE `TRANSACTION` (
+  `Transaction_ID` varchar(150) NOT NULL,
+  `Date` varchar(150) NOT NULL,
+  `User_ID` varchar(150) NOT NULL,
+   PRIMARY KEY (`Transaction_ID`),
+   FOREIGN KEY (`User_ID`) REFERENCES `USER` (`User_ID`)
+);
+
+CREATE TABLE `TRANSACTION_PRODUCT` (
+  `Transaction_ID` varchar(150) NOT NULL,
+  `S_CODE` varchar(150) NOT NULL,
+  `Quantity` int NOT NULL,
+   PRIMARY KEY (`Transaction_ID`, `S_CODE`),
+   FOREIGN KEY (`Transaction_ID`) REFERENCES `TRANSACTION` (`Transaction_ID`),
+   FOREIGN KEY (`S_CODE`) REFERENCES `PRODUCT` (`S_CODE`)
+);
+
+CREATE TABLE `REVIEW` (
+  `Review_ID` int(4) NOT NULL,
+  `Rating` int NOT NULL,
+  `Comment` varchar(200) NOT NULL,
+  `Date` date NOT NULL,
+  `User_ID` varchar(150) NOT NULL,
+  `S_CODE` varchar(150) NOT NULL,
+   PRIMARY KEY (`Review_ID`),
+   FOREIGN KEY (`S_CODE`) REFERENCES `PRODUCT` (`S_CODE`),
+   FOREIGN KEY (`User_ID`) REFERENCES `USER` (`User_ID`)
+);
+
+CREATE TABLE `BOOKMARK` (
+  `Bookmark_ID` int(4) NOT NULL,
+  `Date` date NOT NULL,
+  `User_ID` varchar(150) NOT NULL,
+  `S_CODE` varchar(150) NOT NULL,
+  PRIMARY KEY (`Bookmark_ID`),
+  FOREIGN KEY (`User_ID`) REFERENCES `USER` (`User_ID`),  
+  FOREIGN KEY (`S_CODE`) REFERENCES `PRODUCT` (`S_CODE`)
+);
+
+
+
+
+
+
+
+
+

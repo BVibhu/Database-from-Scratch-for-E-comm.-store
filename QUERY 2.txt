@@ -1,0 +1,8 @@
+SELECT U.Store_ID,FORMAT(SUM((P.Price*(1 - (P.Discount/100)))*T_P.Quantity),2) AS Total_Rev
+FROM Product P, Transaction_Product T_P, User U, Transaction T
+WHERE P.S_CODE = T_P.S_CODE
+AND U.User_ID = T.User_ID
+AND T.Transaction_ID = T_P.Transaction_ID
+GROUP BY U.Store_ID
+;
+

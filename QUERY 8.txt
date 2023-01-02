@@ -1,0 +1,4 @@
+SELECT category, SUM(quantity)
+FROM Product p
+JOIN transaction_product tp ON tp.S_CODE = p.S_CODE
+GROUP BY Category;

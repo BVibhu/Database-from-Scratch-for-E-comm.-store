@@ -1,0 +1,10 @@
+SELECT U.User_ID, U.First_Name, U.Last_Name, SUM(T_P.Quantity) AS Total_Beers, FORMAT(SUM(T_P.Quantity * P.Price),2) AS Beer_revenue
+FROM User U, Transaction T, TRANSACTION_PRODUCT T_P, PRODUCT P
+WHERE U.User_ID = T.User_ID
+AND T.Transaction_ID = T_P.Transaction_ID
+AND P.S_CODE = T_P.S_CODE
+AND P.Category = "Beer"
+GROUP BY U.User_ID
+ORDER BY Total_Beers DESC
+LIMIT 5
+;

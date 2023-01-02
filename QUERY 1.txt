@@ -1,0 +1,16 @@
+SELECT S.Store_ID, SUM(I.Quantity) AS Total_Inv, Table_1.Number_Sold, Table_1.Revenue
+FROM
+(SELECT S.Store_ID, SUM(T_P.Quantity) AS Number_Sold, FORMAT(SUM(T_P.Quantity * (P.Price * (1 - (P.Discount/100)))),2) AS Revenue
+FROM Store S, Inventory I, Product P, Transaction_Product T_P, Transaction T, User U
+WHERE S.Store_ID = I.Store_ID
+AND I.S_CODE = P.S_CODE
+AND T_P.S_CODE = P.S_CODE
+AND T.Transaction_ID = T_P.Transaction_ID
+AND U.User_ID = T.User_ID
+AND U.Store_ID = S.Store_ID
+GROUP BY S.Store_ID) AS Table_1
+INNER JOIN Store S ON S.Store_ID = Table_1.Store_ID
+INNER JOIN Inventory I ON S.Store_ID = I.Store_ID
+GROUP BY S.Store_ID
+ORDER BY Number_Sold DESC
+

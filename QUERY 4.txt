@@ -1,0 +1,12 @@
+SELECT Table_1.S_CODE, Table_1.Product_Name,SUM(I.Quantity) AS Total_Inv, Table_1.Average_daily_sales, FORMAT(SUM(I.Quantity)/Table_1.Average_daily_sales,0) AS Inventory_Days
+FROM
+(SELECT P.S_CODE, P.Product_Name,SUM(T_P.Quantity)/90 AS Average_daily_sales
+FROM Inventory I, Product P, Transaction_Product T_P
+WHERE I.S_CODE = P.S_CODE
+AND T_P.S_CODE = P.S_CODE
+GROUP BY P.S_CODE) AS Table_1
+INNER JOIN Inventory I ON I.S_CODE = Table_1.S_CODE
+GROUP BY Table_1.S_CODE
+HAVING Inventory_Days >180
+ORDER BY Inventory_Days DESC
+;

@@ -1,0 +1,8 @@
+SELECT P.S_CODE, COUNT(*) AS no_of_times_purchased
+FROM user U
+JOIN transaction T ON T.User_ID = U.User_ID
+JOIN transaction_product TP ON TP.Transaction_ID = T.Transaction_ID
+JOIN product P ON P.S_CODE = TP.S_CODE
+WHERE U.City = 'Montreal'
+GROUP BY P.S_CODE
+ORDER BY no_of_times_purchased DESC;

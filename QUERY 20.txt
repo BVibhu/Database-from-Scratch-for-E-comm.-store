@@ -1,0 +1,33 @@
+CREATE VIEW customer_purchases AS
+SELECT U.User_ID, P.S_CODE
+FROM user U
+JOIN transaction T ON T.User_ID = U.User_ID
+JOIN transaction_product TP ON TP.Transaction_ID = T.Transaction_ID
+JOIN product P ON P.S_CODE = TP.S_CODE
+GROUP BY U.User_ID, P.S_CODE
+ORDER BY User_ID, S_CODE;
+
+/*
+SELECT similar.User_ID, COUNT(*) AS no_of_similarities
+FROM customer_purchases AS target
+JOIN customer_purchases AS similar ON (target.S_CODE = similar.S_CODE
+										AND target.User_ID <> similar.User_ID)
+WHERE target.User_ID = 1000
+GROUP BY similar.User_ID
+ORDER BY COUNT(*) DESC;
+*/
+
+SELECT CP.S_CODE, P.Product_Name
+FROM customer_purchases CP
+JOIN product P ON P.S_CODE = CP.S_CODE
+WHERE User_ID = (SELECT similar.User_ID
+				FROM customer_purchases AS target
+				JOIN customer_purchases AS similar ON (target.S_CODE = similar.S_CODE
+														AND target.User_ID <> similar.User_ID)
+				WHERE target.User_ID = 1000
+				GROUP BY similar.User_ID
+				ORDER BY COUNT(*) DESC
+				LIMIT 1)
+		AND CP.S_CODE NOT IN (SELECT S_CODE
+			FROM customer_purchases
+			WHERE User_ID = 1000);

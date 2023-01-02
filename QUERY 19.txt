@@ -1,0 +1,49 @@
+(SELECT W.Acidity, COUNT(W.Acidity) AS count_of_occurences
+FROM user U
+JOIN transaction T ON T.User_ID = U.User_ID
+JOIN transaction_product TP ON TP.Transaction_ID = T.Transaction_ID
+JOIN product P ON P.S_CODE = TP.S_CODE
+JOIN wine W ON W.S_CODE = P.S_CODE
+WHERE U.User_ID = 1000
+GROUP BY W.acidity
+LIMIT 1)
+UNION
+(SELECT W.Sweetness, COUNT(W.Sweetness) AS count_of_occurences
+FROM user U
+JOIN transaction T ON T.User_ID = U.User_ID
+JOIN transaction_product TP ON TP.Transaction_ID = T.Transaction_ID
+JOIN product P ON P.S_CODE = TP.S_CODE
+JOIN wine W ON W.S_CODE = P.S_CODE
+WHERE U.User_ID = 1000
+GROUP BY W.Sweetness
+LIMIT 1)
+UNION
+(SELECT W.Body, COUNT(W.Body) AS count_of_occurences
+FROM user U
+JOIN transaction T ON T.User_ID = U.User_ID
+JOIN transaction_product TP ON TP.Transaction_ID = T.Transaction_ID
+JOIN product P ON P.S_CODE = TP.S_CODE
+JOIN wine W ON W.S_CODE = P.S_CODE
+WHERE U.User_ID = 1000
+GROUP BY W.Body
+LIMIT 1)
+UNION
+(SELECT W.Mouthfeel, COUNT(W.Mouthfeel) AS count_of_occurences
+FROM user U
+JOIN transaction T ON T.User_ID = U.User_ID
+JOIN transaction_product TP ON TP.Transaction_ID = T.Transaction_ID
+JOIN product P ON P.S_CODE = TP.S_CODE
+JOIN wine W ON W.S_CODE = P.S_CODE
+WHERE U.User_ID = 1000
+GROUP BY W.Mouthfeel
+LIMIT 1)
+UNION
+(SELECT W.Wood, COUNT(W.Wood) AS count_of_occurences
+FROM user U
+JOIN transaction T ON T.User_ID = U.User_ID
+JOIN transaction_product TP ON TP.Transaction_ID = T.Transaction_ID
+JOIN product P ON P.S_CODE = TP.S_CODE
+JOIN wine W ON W.S_CODE = P.S_CODE
+WHERE U.User_ID = 1000
+GROUP BY W.Wood
+LIMIT 1);

@@ -1,0 +1,5 @@
+SELECT
+Product_Name,SUM(Quantity) as Quantities_Sold
+FROM PRODUCT, COCKTAIL_PRODUCT ,transaction_product
+  where COCKTAIL_PRODUCT.S_CODE = PRODUCT.S_CODE AND transaction_product.S_CODE = PRODUCT.S_CODE
+group by Product_Name order by Quantities_Sold DESC

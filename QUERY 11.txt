@@ -1,0 +1,4 @@
+alter table product add sizeInInt int;
+update product set sizeInInt =cast( (substring(Size,1,length(Size)-3)) as decimal);
+select Product_name,(sizeInInt*(Alcohol_Percent/100))/Price as AlcoholPerDollar_InMl from product order by AlcoholPerDollar_InMl DESC
+

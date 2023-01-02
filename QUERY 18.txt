@@ -1,0 +1,6 @@
+SELECT P.S_CODE, P.Product_Name, SUM(TP.Quantity * P.Price) AS total_sales, P.Discount
+FROM transaction T
+JOIN transaction_product TP ON TP.Transaction_ID = T.Transaction_ID
+JOIN product P ON P.S_CODE = TP.S_CODE
+GROUP BY P.S_CODE
+ORDER BY Discount DESC;

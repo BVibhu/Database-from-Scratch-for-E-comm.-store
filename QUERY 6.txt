@@ -1,0 +1,8 @@
+SELECT p.S_CODE,p.Product_Name,p.category
+,SUM(tp.quantity) AS TotalQuantityOrdered
+FROM  Product p
+INNER JOIN Transaction_Product tp 
+ON p.S_CODE = tp.S_CODE
+GROUP BY p.S_CODE
+ORDER BY SUM(tp.quantity) DESC
+LIMIT 5;
